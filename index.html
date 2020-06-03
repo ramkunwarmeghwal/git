@@ -1,12 +1,37 @@
-high performance
-abcd
-yaa 
-gvbhnj
-<<<<<<< HEAD
-hjkl
-=======
-hjajdkajld
-ablfakna;
->>>>>>> 3305ad508bde690e72b764dd8d38bb7acf4916
-corana virus is good for india
-  my india is a great nation
+#high performance
+#abcd
+#yaa 
+#gvbhnj
+#<<<<<<< HEAD
+#hjkl
+#=======
+#hjajdkajld
+#ablfakna;
+#>>>>>>> 3305ad508bde690e72b764dd8d38bb7acf4916
+#corana virus is good for india
+ # my india is a great nation
+  
+import pandas as pd
+dataset = pd.read_csv('Example.csv')
+
+sat = dataset['Satisfaction']
+loy = dataset['Loyalty']
+
+import matplotlib.pyplot as plt
+plt.scatter(sat, loy)
+plt.xlabel('sat')
+plt.ylabel('loy')
+
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+data_scaled = sc.fit_transform(dataset)
+
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=4)
+model.fit(data_scaled)
+
+pred  = model.fit_predict(data_scaled)
+dataset_scaled = pd.DataFrame(data_scaled, columns=['Sat', 'Loy'])
+dataset_scaled['cluster name'] = pred
+dataset['cluster name'] = pred
+plt.scatter(dataset_scaled['Loy'], dataset_scaled['Sat'], c=dataset_scaled['cluster name'])
